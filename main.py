@@ -2,6 +2,7 @@ from txtSummarizer.pipeline.stage_01_data_ingestion import DataIngestionTraining
 from txtSummarizer.pipeline.stage_02_data_validation import DataValidationTrainingPipeline
 from txtSummarizer.pipeline.stage_03_data_transformation import DataTransformationTrainingPipeline
 from txtSummarizer.pipeline.stage_04_model_training import ModelTrainingPipeline
+from txtSummarizer.pipeline.stage_05_model_evaluation import ModelEvaluationPipeline
 from txtSummarizer.logging import logger
 
 STAGE_NAME = 'Data Ingestion Stage'
@@ -40,6 +41,17 @@ try:
     logger.info(f"\n\n>>>>>> stage {STAGE_NAME} started <<<<<<")
     model_training = ModelTrainingPipeline()
     model_training.main()
+    logger.info(f">>>>>> stage {STAGE_NAME} completed <<<<<<")
+except Exception as e:
+    logger.error(f"stage {STAGE_NAME} failed with error: {e}")
+    raise e
+
+
+STAGE_NAME = 'Model Evaluation Stage'
+try:
+    logger.info(f"\n\n>>>>>> stage {STAGE_NAME} started <<<<<<")
+    model_evaluation = ModelEvaluationPipeline()
+    model_evaluation.main()
     logger.info(f">>>>>> stage {STAGE_NAME} completed <<<<<<")
 except Exception as e:
     logger.error(f"stage {STAGE_NAME} failed with error: {e}")
